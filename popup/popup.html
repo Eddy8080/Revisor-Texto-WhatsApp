@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-width: 300px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 24px 0;
+    }
+
+    body > * {
+      width: 340px;
+      max-width: 100%;
+    }
+
+    .header {
+      background: #1a73e8;
+      color: white;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header svg { flex-shrink: 0; }
+
+    .header-text h1 { font-size: 14px; font-weight: 600; }
+    .header-text p  { font-size: 11px; opacity: 0.85; margin-top: 2px; }
+
+    .body { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+
+    /* Card de status */
+    .status-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .status-label { color: #555; font-weight: 500; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .badge-ok      { background: #d4edda; color: #155724; }
+    .badge-error   { background: #f8d7da; color: #721c24; }
+    .badge-loading { background: #fff3cd; color: #856404; }
+
+    .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-ok      { background: #28a745; }
+    .dot-error   { background: #dc3545; }
+    .dot-loading { background: #ffc107; animation: pulse 1s infinite; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    .model-name {
+      font-size: 12px;
+      color: #1a73e8;
+      font-weight: 600;
+      background: #e8f0fe;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .btn-check {
+      width: 100%;
+      padding: 8px;
+      background: #e8f0fe;
+      color: #1a73e8;
+      border: 1px solid #c5d8fd;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-check:hover    { background: #d2e3fc; }
+    .btn-check:disabled { opacity: 0.5; cursor: default; }
+
+    .btn-wake {
+      width: 100%;
+      padding: 8px;
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffd453;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-wake:hover    { background: #ffe69c; }
+    .btn-wake:disabled { opacity: 0.5; cursor: default; }
+
+    .saiba-mais {
+      text-align: center;
+      margin-top: 8px;
+    }
+    .saiba-mais a {
+      color: #1a73e8;
+      font-size: 11px;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .saiba-mais a:hover { text-decoration: underline; }
+
+    /* Guia de problema */
+    .guide {
+      background: #fff3cd;
+      border-left: 3px solid #ffc107;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: #333;
+      line-height: 1.65;
+      display: none;
+    }
+
+    .guide b { color: #856404; display: block; margin-bottom: 5px; }
+
+    .guide code {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-size: 11px;
+      font-family: 'Cascadia Code', 'Consolas', monospace;
+    }
+
+    .guide ol { margin: 6px 0 0 16px; }
+    .guide li { margin-bottom: 6px; }
+
+    .footer {
+      padding: 10px 16px 14px;
+      font-size: 10px;
+      color: #999;
+      text-align: center;
+      border-top: 1px solid #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+<div id="rte-config-card">
+  <div class="header">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+      <rect width="28" height="28" rx="6" fill="rgba(255,255,255,0.2)"/>
+      <path d="M7 8h14M7 12h10M7 16h12M7 20h8" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="21" cy="20" r="5" fill="#34a853"/>
+      <path d="M18.8 20l1.4 1.4 2.8-2.8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="header-text">
+      <h1>Revisor de Texto</h1>
+      <p>IA Local — PT-BR</p>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="status-card">
+      <div class="status-row">
+        <span class="status-label">Servidor local</span>
+        <span class="badge badge-loading" id="badgeServer">
+          <span class="dot dot-loading"></span>
+          verificando...
+        </span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">Modelo</span>
+        <span class="badge badge-loading" id="badgeModel">
+          <span class="dot dot-loading"></span>
+          verificando...
+        </span>
+      </div>
+      <div class="model-name" id="modelName">lfm2.5-thinking</div>
+    </div>
+
+    <button class="btn-check" id="btnCheck">Verificar novamente</button>
+    <button class="btn-wake" id="btnWake" style="display:none">Acordar Servidor</button>
+
+    <div class="saiba-mais">
+      <a id="lnkSaibaMais">Como iniciar o modelo local?</a>
+    </div>
+
+    <div class="guide" id="guide">
+      <b>Servidor não detectado — o que fazer:</b>
+      <ol>
+        <li><b>Opção 1 (Recomendada):</b> Reinicie o computador. O instalador configurou o servidor para iniciar automaticamente.</li>
+        <li><b>Opção 2 (Manual):</b> Abra o terminal (PowerShell) e cole este comando único:<br>
+            <code>cd "$env:LOCALAPPDATA\RevisorTexto\engine"; .\llama-server.exe -m lfm2.5-thinking.gguf --port 8080</code></li>
+        <li><b>Opção 3 (Pasta):</b> Vá em <code>%LOCALAPPDATA%\RevisorTexto\engine</code> e abra o <code>llama-server.exe</code>.</li>
+      </ol>
+    </div>
+
+  </div>
+
+  <div class="footer">IA rodando localmente · sem nuvem · sem API key</div>
+
+  <script src="popup.js"></script>
+</div>
+</body>
+</html>

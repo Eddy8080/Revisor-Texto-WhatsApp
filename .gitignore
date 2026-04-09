@@ -1,0 +1,32 @@
+# Ambiente virtual Python
+venv/
+
+# Artefatos de build e distribuição
+dist/
+
+# Motor de inferência (binários grandes — não versionados)
+engine/
+
+# Redistributáveis externos
+redist/
+
+# Imagens do wizard do instalador (arquivos grandes)
+Banner_lateral.png
+logo_pequena.png
+
+# Scripts de geração de cache Python
+icons/__pycache__/
+
+# Logs
+*.log
+
+# Binários compilados
+*.exe
+*.dll
+*.gguf
+*.zip
+
+# Arquivos
+revisor.md
+googlee.py 
+politica.md
