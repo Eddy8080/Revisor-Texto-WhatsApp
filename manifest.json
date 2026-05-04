@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Revisor de Texto PT-BR",
+  "name": "DigIAna",
   "version": "2.0",
-  "description": "Revisor de texto inteligente com IA local (Ollama + LFM2.5) para PT-BR.",
+  "description": "DigIAna: Assistente de escrita inteligente com IA local para WhatsApp Web.",
   "permissions": [
     "storage",
     "activeTab",

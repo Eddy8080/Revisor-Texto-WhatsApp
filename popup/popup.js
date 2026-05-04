@@ -58,7 +58,7 @@ async function wakeServer() {
 
   // Dispara o protocol handler registrado pelo instalador.
   // O Windows executa wake_server.ps1, que inicia o llama-server.
-  window.open('revisor-start://');
+  window.open('digiana-start://');
 
   // Aguarda o modelo carregar (até 60s, verificando a cada 5s)
   let attempts = 0;

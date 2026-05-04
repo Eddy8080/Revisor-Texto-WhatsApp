@@ -1,9 +1,9 @@
 """
-Build da extensão Revisor de Texto.
+Build da extensão DigIAna.
 
 1. Gera os ícones PNG (se não existirem)
 2. Copia os arquivos para dist/extension/  (fonte para o Inno Setup)
-3. Empacota dist/extension/ em dist/revisor_texto.zip
+3. Empacota dist/extension/ em dist/digiana.zip
 
 Execute: python build.py
 """
@@ -63,6 +63,20 @@ def check_files():
     else:
         print('[build] VC++ Redistributable OK.')
 
+    # Verificação do Motor e Modelo
+    engine_exe = os.path.join(ROOT, 'engine', 'llama-server.exe')
+    model_file = os.path.join(ROOT, 'engine', 'qwen2.5-3b-instruct-q4_k_m.gguf')
+
+    if not os.path.exists(engine_exe):
+        print('\n[build] ERRO — engine\\llama-server.exe não encontrado.')
+        sys.exit(1)
+
+    if not os.path.exists(model_file):
+        print('\n[build] ERRO — Modelo qwen2.5-3b-instruct-q4_k_m.gguf não encontrado na pasta engine.')
+        sys.exit(1)
+    
+    print('[build] Motor e Modelo OK.')
+
 
 def build_extension_dir():
     """Copia os arquivos para dist/extension/ — usado pelo Inno Setup como fonte."""
@@ -81,7 +95,7 @@ def build_extension_dir():
 
 def build_zip():
     """Gera o .zip a partir de dist/extension/."""
-    out_path = os.path.join(DIST, 'revisor_texto.zip')
+    out_path = os.path.join(DIST, 'digiana.zip')
 
     with zipfile.ZipFile(out_path, 'w', zipfile.ZIP_DEFLATED) as zf:
         for rel in INCLUDE:
@@ -93,7 +107,7 @@ def build_zip():
 
 
 if __name__ == '__main__':
-    print('=== Build — Revisor de Texto ===\n')
+    print('=== Build — DigIAna ===\n')
     ensure_icons()
     check_files()
     print('\n[build] Copiando arquivos para dist/extension/ ...')
@@ -102,4 +116,4 @@ if __name__ == '__main__':
     build_zip()
     print('\n[build] Concluído!')
     print('        dist/extension/      -> fonte para o Inno Setup')
-    print('        dist/revisor_texto.zip -> carga manual no Chrome/Firefox')
+    print('        dist/digiana.zip -> carga manual no Chrome/Firefox')

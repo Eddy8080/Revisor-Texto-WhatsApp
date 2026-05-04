@@ -1,13 +1,13 @@
 ; ============================================================
-;  Revisor de Texto PT-BR - Inno Setup Script
+;  DigIAna - Inno Setup Script
 ;  Pre-requisitos antes de compilar:
 ;    1. python build.py                    -> gera dist\extension\
 ;    2. engine\llama-server.exe            -> binario do llama.cpp (Windows)
-;    3. engine\lfm2.5-thinking.gguf        -> modelo quantizado (~731 MB)
+;    3. engine\qwen2.5-3b-instruct-q4_k_m.gguf -> modelo quantizado (~1.9 GB)
 ;    4. redist\vc_redist.x64.exe           -> Visual C++ Redistributable 2022 x64
 ; ============================================================
 
-#define AppName    "Revisor de Texto PT-BR"
+#define AppName    "DigIAna"
 #define AppVersion "2.0"
 #define AppPublisher "Edilson Monteiro"
 #define ExtDir     "dist\extension"
@@ -19,12 +19,12 @@ AppName={#AppName}
 AppVersion={#AppVersion}
 AppPublisher={#AppPublisher}
 AppVerName={#AppName} {#AppVersion}
-DefaultDirName={localappdata}\RevisorTexto
+DefaultDirName={localappdata}\DigIAna
 DisableDirPage=yes
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
 OutputDir=dist
-OutputBaseFilename=RevisorTexto_Setup_{#AppVersion}
+OutputBaseFilename=DigIAna_Setup_{#AppVersion}
 Compression=lzma2/ultra64
 SolidCompression=yes
 WizardStyle=modern
@@ -34,7 +34,7 @@ UninstallDisplayIcon={app}\icons\icon128.png
 WizardImageFile=Banner_lateral.png
 WizardSmallImageFile=logo_pequena.png
 
-AppComments=Extensao Chrome para revisar textos no WhatsApp Web com IA local (LFM2.5).
+AppComments=IA local (Qwen 2.5 3B) para suporte em tempo real.
 AppContact={#AppPublisher}
 
 [Languages]
@@ -56,7 +56,7 @@ Source: "{#ExtDir}\icons\icon128.png";    DestDir: "{app}\icons";    Flags: igno
 
 Source: "{#EngineDir}\llama-server.exe";       DestDir: "{app}\engine"; Flags: ignoreversion
 Source: "{#EngineDir}\*.dll";                  DestDir: "{app}\engine"; Flags: ignoreversion
-Source: "{#EngineDir}\lfm2.5-thinking.gguf";   DestDir: "{app}\engine"; Flags: ignoreversion
+Source: "{#EngineDir}\qwen2.5-3b-instruct-q4_k_m.gguf";   DestDir: "{app}\engine"; Flags: ignoreversion
 Source: "{#EngineDir}\start_server.bat";       DestDir: "{app}\engine"; Flags: ignoreversion
 Source: "{#EngineDir}\wake_server.ps1";        DestDir: "{app}\engine"; Flags: ignoreversion
 
@@ -70,9 +70,9 @@ Filename: "{tmp}\vc_redist.x64.exe"; \
   Flags: waituntilterminated
 
 [Registry]
-Root: HKCU; Subkey: "Software\Classes\revisor-start"; ValueType: string; ValueName: ""; ValueData: "URL:Revisor de Texto Protocol"; Flags: uninsdeletekey
-Root: HKCU; Subkey: "Software\Classes\revisor-start"; ValueType: string; ValueName: "URL Protocol"; ValueData: ""
-Root: HKCU; Subkey: "Software\Classes\revisor-start\shell\open\command"; ValueType: expandsz; ValueName: ""; ValueData: "powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File ""%LOCALAPPDATA%\RevisorTexto\engine\wake_server.ps1"" %1"
+Root: HKCU; Subkey: "Software\Classes\digiana-start"; ValueType: string; ValueName: ""; ValueData: "URL:DigIAna Protocol"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "Software\Classes\digiana-start"; ValueType: string; ValueName: "URL Protocol"; ValueData: ""
+Root: HKCU; Subkey: "Software\Classes\digiana-start\shell\open\command"; ValueType: expandsz; ValueName: ""; ValueData: "powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File ""%LOCALAPPDATA%\DigIAna\engine\wake_server.ps1"" %1"
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}"
@@ -148,11 +148,11 @@ var
 begin
   BatchFile := ExpandConstant('{app}\engine\start_server.bat');
 
-  Exec('schtasks.exe', '/Delete /TN "RevisorTextoServer" /F',
+  Exec('schtasks.exe', '/Delete /TN "DigIAnaServer" /F',
        '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
 
   Exec('schtasks.exe',
-       '/Create /TN "RevisorTextoServer"' +
+       '/Create /TN "DigIAnaServer"' +
        ' /TR "cmd /c \"\"' + BatchFile + '\"\""' +
        ' /SC ONLOGON /RL LIMITED /F',
        '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
@@ -196,6 +196,6 @@ procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 var ResultCode: Integer;
 begin
   if CurUninstallStep = usPostUninstall then
-    Exec('schtasks.exe', '/Delete /TN "RevisorTextoServer" /F',
+    Exec('schtasks.exe', '/Delete /TN "DigIAnaServer" /F',
          '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
 end;

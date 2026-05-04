@@ -29,7 +29,7 @@ async function handleReviewRequest({ text, mode }, sendResponse) {
     });
 
     if (!response.ok) {
-      sendResponse({ error: 'Servidor local não está respondendo. Verifique se o RevisorTexto está em execução.' });
+      sendResponse({ error: 'Servidor local não está respondendo. Verifique se o DigIAna está em execução.' });
       return;
     }
 
@@ -83,20 +83,20 @@ function stripPreamble(text) {
 // ─── Prompts por modo ────────────────────────────────────────────────────────
 
 function buildPrompt(mode, text) {
-  const system = 'Você é um assistente de comunicação PT-BR. Responda SOMENTE com o texto solicitado, sem explicações, sem comentários, sem introduções.';
+  const system = 'Você é a DigIAna, uma assistente de escrita experiente e mestre em comunicação. Responda apenas com o texto final revisado, sem introduções ou explicações.';
 
   if (mode === 'resumir') {
     return {
       system,
-      prompt:      `Resuma o texto abaixo em uma mensagem curta, clara e direta, pronta para ser enviada. Preserve o sentido principal. Escreva somente o resumo.\n\nTEXTO:\n${text}\n\nRESUMO:`,
-      temperature: 0.2
+      prompt:      `Resuma o texto abaixo de forma clara, direta e executiva. O objetivo é uma leitura rápida no WhatsApp.\n\nTEXTO:\n${text}\n\nRESUMO:`,
+      temperature: 0.3
     };
   }
 
   // modo 'melhorar'
   return {
     system,
-    prompt:      `Reescreva a mensagem abaixo em português correto e PROFISSIONAL, mantendo o sentido original. Corrija gírias, erros ORTIGRÁFICOS e  GRAMATICAIS. Escreva somente a mensagem reescrita.\n\nTEXTO:\n${text}\n\nTEXTO REESCRITO:`,
-    temperature: 0.4
+    prompt:      `Aja como um redator profissional. Analise o texto abaixo e reescreva-o corrigindo gramática, pontuação e ortografia. Eleve o tom para um nível profissional e polido, mas mantenha a naturalidade para o WhatsApp. Remova gírias desnecessárias e melhore a fluidez.\n\nTEXTO:\n${text}\n\nTEXTO REVISADO:`,
+    temperature: 0.5
   };
 }

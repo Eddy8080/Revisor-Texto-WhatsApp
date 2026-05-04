@@ -1,8 +1,8 @@
 > **Aviso: projeto em fase experimental.** Pode conter bugs, mudanças de comportamento sem aviso e funcionalidades incompletas. Use por sua conta e risco.
 
-# Revisor de Texto PT-BR
+# DigIAna
 
-Extensão Chrome que injeta um botão flutuante no WhatsApp Web para revisar e melhorar textos usando **IA local (llama.cpp + LFM2.5-thinking 1.2B)**, sem precisar de Ctrl+C/Ctrl+V, sem API key e sem enviar dados à nuvem.
+Extensão Chrome que injeta um botão flutuante no WhatsApp Web para revisar e melhorar textos usando **IA local (llama.cpp + Qwen 2.5 3B Instruct)**, sem precisar de Ctrl+C/Ctrl+V, sem API key e sem enviar dados à nuvem.
 
 ## Como funciona
 
@@ -27,7 +27,7 @@ Extensão Chrome que injeta um botão flutuante no WhatsApp Web para revisar e m
 
 ## Instalação (usuário final)
 
-1. Baixe o instalador `RevisorTexto_Setup_2.0.exe` na aba [Releases](../../releases)
+1. Baixe o instalador `DigIAna_Setup_2.0.exe` na aba [Releases](../../releases)
 2. Execute e siga o assistente
 3. Aguarde ~30s para o servidor subir após a instalação
 4. Abra o WhatsApp Web e pressione **F5** na aba
@@ -63,8 +63,8 @@ revisor_texto/
 ├── icons/
 │   ├── generate_icons.py  # Gera icon16/48/128.png em Python puro
 │   └── icon*.png
-├── build.py               # Gera dist/extension/ + dist/revisor_texto.zip
-├── revisor_texto.iss      # Script Inno Setup
+├── build.py               # Gera dist/extension/ + dist/digiana.zip
+├── digiana.iss            # Script Inno Setup
 └── politica.md            # Política de privacidade
 ```
 
@@ -73,12 +73,12 @@ revisor_texto/
 ## Configuração do servidor local
 
 ```
-llama-server.exe -m lfm2.5-thinking.gguf --port 8080 --host 127.0.0.1 -c 8192
+llama-server.exe -m qwen2.5-3b-instruct-q4_k_m.gguf --port 8080 --host 127.0.0.1 -c 4096
 ```
 
 | Parâmetro | Valor | Motivo |
 |---|---|---|
-| `-c` | 8192 | Modelo de raciocínio gera blocos `<think>` longos — 4096 esgotava antes da resposta |
+| `-c` | 4096 | Equilíbrio entre memória e capacidade de resposta |
 | `--host` | 127.0.0.1 | Somente loopback — sem exposição na rede local |
 | `--port` | 8080 | Porta padrão do projeto |
 

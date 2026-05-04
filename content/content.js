@@ -29,7 +29,7 @@
   // ─── Botão flutuante ────────────────────────────────────────────────────────
   const btn = document.createElement('button');
   btn.id = 'rte-btn';
-  btn.title = 'Revisor de Texto';
+  btn.title = 'DigIAna';
   btn.innerHTML = `
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 20h9"/>
@@ -73,7 +73,7 @@
   panel.id = 'rte-panel';
   panel.innerHTML = `
     <div id="rte-panel-header">
-      <span>Revisor de Texto</span>
+      <span>DigIAna</span>
       <button id="rte-close" title="Fechar">&#x2715;</button>
     </div>
     <div id="rte-modes">
