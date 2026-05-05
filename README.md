@@ -2,12 +2,12 @@
 
 # DigIAna
 
-Extensão Chrome que injeta um botão flutuante no WhatsApp Web para revisar e melhorar textos usando **IA local (llama.cpp + Qwen 2.5 3B Instruct)**, sem precisar de Ctrl+C/Ctrl+V, sem API key e sem enviar dados à nuvem.
+Extensão Chrome que injeta um botão flutuante no WhatsApp Web e DigiSac para revisar e melhorar textos usando **IA local (llama.cpp + Qwen 2.5 3B Instruct)**, sem precisar de Ctrl+C/Ctrl+V, sem API key e sem enviar dados à nuvem.
 
 ## Como funciona
 
 1. Um servidor local (`llama-server.exe`) roda em segundo plano na porta `8080`
-2. A extensão detecta o campo de mensagem do WhatsApp Web
+2. A extensão detecta o campo de mensagem do WhatsApp Web ou DigiSac
 3. Você clica no botão flutuante, escolhe o modo e clica em **Aplicar**
 4. O texto é substituído diretamente no campo — pronto para enviar
 
@@ -22,7 +22,7 @@ Extensão Chrome que injeta um botão flutuante no WhatsApp Web para revisar e m
 
 - Windows 10/11 x64
 - CPU com suporte a AVX2 (a maioria dos processadores desde ~2013)
-- ~800 MB livres em disco (motor + modelo)
+- ~2.5 GB livres em disco (motor + modelo)
 - Google Chrome
 
 ## Instalação (usuário final)
@@ -30,7 +30,7 @@ Extensão Chrome que injeta um botão flutuante no WhatsApp Web para revisar e m
 1. Baixe o instalador `DigIAna_Setup_2.0.exe` na aba [Releases](../../releases)
 2. Execute e siga o assistente
 3. Aguarde ~30s para o servidor subir após a instalação
-4. Abra o WhatsApp Web e pressione **F5** na aba
+4. Abra o WhatsApp Web ou DigiSac e pressione **F5** na aba
 5. Clique no ícone da extensão no Chrome para verificar o status do servidor
 
 ## Instalação para desenvolvimento
@@ -45,14 +45,14 @@ python build.py
 # 3. Iniciar o servidor manualmente
 engine\start_server.bat
 
-# 4. Pressionar F5 no WhatsApp Web
+# 4. Pressionar F5 no WhatsApp Web ou DigiSac
 ```
 
 ## Estrutura do repositório
 
 ```
 revisor_texto/
-├── manifest.json          # Manifest V3 (restrito a web.whatsapp.com)
+├── manifest.json          # Manifest V3 (WhatsApp Web e *.digisac.chat)
 ├── background.js          # Service worker — chama llama-server via fetch
 ├── popup/
 │   ├── popup.html         # Tela de status (servidor + modelo)

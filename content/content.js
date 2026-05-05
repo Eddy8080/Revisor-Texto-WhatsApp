@@ -329,18 +329,7 @@
 
     errMsg.textContent  = msg;
     err.style.display   = 'block';
-
-    // Se o erro for de chave ausente, exibe link direto para as opções
-    if (msg.includes('não configurada')) {
-      errLink.style.display = 'inline';
-      errLink.onclick = (e) => {
-        e.preventDefault();
-        chrome.runtime.sendMessage({ action: 'openOptions' });
-        closePanel();
-      };
-    } else {
-      errLink.style.display = 'none';
-    }
+    errLink.style.display = 'none';
 
     setTimeout(resetPanel, 5000);
   }

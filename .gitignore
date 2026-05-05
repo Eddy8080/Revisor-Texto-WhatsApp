@@ -19,6 +19,8 @@ icons/__pycache__/
 
 # Logs
 *.log
+memory_log.csv
+monitor_memory.ps1
 
 # Binários compilados
 *.exe

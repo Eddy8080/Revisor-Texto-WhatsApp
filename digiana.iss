@@ -8,7 +8,7 @@
 ; ============================================================
 
 #define AppName    "DigIAna"
-#define AppVersion "2.0"
+#define AppVersion "2.5"
 #define AppPublisher "Edilson Monteiro"
 #define ExtDir     "dist\extension"
 #define EngineDir  "engine"
@@ -19,7 +19,7 @@ AppName={#AppName}
 AppVersion={#AppVersion}
 AppPublisher={#AppPublisher}
 AppVerName={#AppName} {#AppVersion}
-DefaultDirName={localappdata}\DigIAna
+DefaultDirName={commonpf}\DigIAna
 DisableDirPage=yes
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
@@ -28,7 +28,7 @@ OutputBaseFilename=DigIAna_Setup_{#AppVersion}
 Compression=lzma2/ultra64
 SolidCompression=yes
 WizardStyle=modern
-PrivilegesRequired=lowest
+PrivilegesRequired=admin
 UninstallDisplayName={#AppName}
 UninstallDisplayIcon={app}\icons\icon128.png
 WizardImageFile=Banner_lateral.png
@@ -70,9 +70,10 @@ Filename: "{tmp}\vc_redist.x64.exe"; \
   Flags: waituntilterminated
 
 [Registry]
-Root: HKCU; Subkey: "Software\Classes\digiana-start"; ValueType: string; ValueName: ""; ValueData: "URL:DigIAna Protocol"; Flags: uninsdeletekey
-Root: HKCU; Subkey: "Software\Classes\digiana-start"; ValueType: string; ValueName: "URL Protocol"; ValueData: ""
-Root: HKCU; Subkey: "Software\Classes\digiana-start\shell\open\command"; ValueType: expandsz; ValueName: ""; ValueData: "powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File ""%LOCALAPPDATA%\DigIAna\engine\wake_server.ps1"" %1"
+; Protocolo registrado em HKLM para todos os usuários
+Root: HKLM; Subkey: "Software\Classes\digiana-start"; ValueType: string; ValueName: ""; ValueData: "URL:DigIAna Protocol"; Flags: uninsdeletekey
+Root: HKLM; Subkey: "Software\Classes\digiana-start"; ValueType: string; ValueName: "URL Protocol"; ValueData: ""
+Root: HKLM; Subkey: "Software\Classes\digiana-start\shell\open\command"; ValueType: expandsz; ValueName: ""; ValueData: "powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File ""{app}\engine\wake_server.ps1"" %1"
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}"
