@@ -264,14 +264,26 @@
     if (lastFocusedField && document.contains(lastFocusedField)) {
       return lastFocusedField;
     }
-    // Fallbacks em ordem de confiabilidade
-    return (
-      document.querySelector('div[data-lexical-editor="true"]')                    ||
-      document.querySelector('div[data-testid="conversation-compose-box-input"]') ||
-      document.querySelector('div[contenteditable="true"][role="textbox"]')        ||
-      document.querySelector('div[contenteditable="true"][data-tab="10"]')         ||
-      document.querySelector('div[contenteditable="true"]')
-    );
+    
+    // Seletores em ordem de prioridade (WhatsApp e DigiSac)
+    const selectors = [
+      'div[data-lexical-editor="true"]',                    // WhatsApp
+      'div[data-testid="conversation-compose-box-input"]',  // WhatsApp
+      '#input-send-message',                                // DigiSac (ID comum)
+      '.input-message',                                     // DigiSac (Classe comum)
+      'div[contenteditable="true"][role="textbox"]',        // Padrão ARIA
+      'div[contenteditable="true"][data-tab="10"]',         // WhatsApp Antigo
+      'div[contenteditable="true"]',                        // Fallback genérico
+      'textarea[placeholder*="mensagem"]',                  // Fallback DigiSac
+      'textarea'                                            // Último recurso
+    ];
+
+    for (const selector of selectors) {
+      const el = document.querySelector(selector);
+      if (el) return el;
+    }
+    
+    return null;
   }
 
   function setFieldText(el, text) {

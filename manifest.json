@@ -10,6 +10,7 @@
   ],
   "host_permissions": [
     "https://web.whatsapp.com/*",
+    "https://*.digisac.chat/*",
     "http://localhost:8080/*"
   ],
   "options_ui": {
@@ -29,7 +30,10 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://web.whatsapp.com/*"],
+      "matches": [
+        "https://web.whatsapp.com/*",
+        "https://*.digisac.chat/*"
+      ],
       "js": ["content/content.js"],
       "css": ["content/styles.css"]
     }
