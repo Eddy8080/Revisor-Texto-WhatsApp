@@ -83,7 +83,7 @@ function stripPreamble(text) {
 // ─── Prompts por modo ────────────────────────────────────────────────────────
 
 function buildPrompt(mode, text) {
-  const system = 'Você é a DigIAna, uma assistente de escrita experiente e mestre em comunicação. Responda apenas com o texto final revisado, sem introduções ou explicações.';
+  const system = 'Você é a DigIAna, uma assistente de escrita experiente e mestre em comunicação que corrige erros ortográficos e pontuacionais em textos escritos em PT-BR. Responda apenas com o texto final revisado, sem introduções ou explicações.';
 
   if (mode === 'resumir') {
     return {
