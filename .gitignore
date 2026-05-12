@@ -14,8 +14,19 @@ redist/
 Banner_lateral.png
 logo_pequena.png
 
-# Scripts de geração de cache Python
-icons/__pycache__/
+# Cache do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Arquivos de configuração de IDE
+.vscode/
+.idea/
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
 
 # Logs
 *.log
